@@ -1,0 +1,9 @@
+name: workflow3_pull_Activity
+on:
+pull_request:
+  types: [opened,closed]
+jobs:
+  pull_job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{github.base_ref}} <--- ${{github.head_ref}}"

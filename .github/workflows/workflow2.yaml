@@ -1,4 +1,4 @@
-name: workflow2
+name: workflow2_pushFilter
 on:
   push:
     branches:
