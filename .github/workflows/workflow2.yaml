@@ -66,7 +66,7 @@ jobs:
       - name: Run build
         run: npm run build
       - name: publish artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: outputBuild
           path: dist
@@ -75,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v7
         with:
           name: outputBuild
       - name: Display
