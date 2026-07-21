@@ -1,7 +1,7 @@
 name: workflow3_pull_Activity
 on:
-pull_request:
-  types: [opened,closed]
+  pull_request:
+   types: [opened,closed]
 jobs:
   pull_job:
     runs-on: ubuntu-latest
