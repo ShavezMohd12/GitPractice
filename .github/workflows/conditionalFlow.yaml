@@ -1,0 +1,25 @@
+name: conditionalWorkflow
+on: 
+  push:
+    branches:
+      - master
+
+jobs:
+    Lint:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Get code
+          uses: actions/checkout@v3
+        - name: Get Node
+          uses: actions/setup-Node@v3
+          with:
+            node-version: '18'
+        - name: cache Node module
+          uses: actions/cache@v3
+          with:
+            path: node_modules
+            key:  node-module-${{ hashFiles('package-lock.json') }}
+        - name: install dependencies
+          run: npm ci
+        - name: Run Lint
+          run: npm run lint

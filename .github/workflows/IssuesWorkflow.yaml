@@ -1,8 +1,8 @@
-name: issueHandle
-on: issues
-jobs:
-  info:
-    runs-on: ubuntu-latest
-    steps:
-     - name: output
-       run: echo "Issue number is ${{ github.event}}"
+# name: issueHandle
+# on: issues
+# jobs:
+#   info:
+#     runs-on: ubuntu-latest
+#     steps:
+#      - name: output
+#        run: echo "Issue number is ${{ github.event}}"

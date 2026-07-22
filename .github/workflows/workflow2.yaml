@@ -1,89 +1,89 @@
-name: workflow2_pushFilter
-on:
-  push:
-    branches:
-      - master
-      - master/**
-      - master
-    paths:
-      - '**.js'
-      - '.github/**'
-jobs:
-  Lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v7
-      - name: install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - name: Cache the dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: cachekey-${{hashFiles('**/package-lock.json')}} 
-      - name: Install dependencies
-        run: npm ci
-      - name: Run lint
-        run: npm run lint
-  Test:
-    needs: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v7
-      - name: install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - name: Cache the dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: cachekey-${{hashFiles('**/package-lock.json')}} 
-      - name: Install dependencies
-        run: npm ci
-      - name: Run tests
-        run: npm run test
-  Build:
-   needs: [Lint,Test]
-   outputs:
-    greet: ${{steps.g1.outputs.greeting}}
-   runs-on: ubuntu-latest
-   steps:
-      - name: Produce Greeting Hello
-        id:   g1
-        run:  echo 'greeting=hello' >> $GITHUB_OUTPUT ';'
-      - name: Checkout code
-        uses: actions/checkout@v7
-      - name: install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - name: Cache the dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: cachekey-${{hashFiles('**/package-lock.json')}} 
-      - name: Install dependencies
-        run: npm ci
-      - name: Run build
-        run: npm run build
-      - name: publish artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: outputBuild
-          path: dist
-  Deploy:
-    needs: Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get artifact
-        uses: actions/download-artifact@v7
-        with:
-          name: outputBuild
-      - name: Display
-        run: ls
-      - name: Display Job output
-        run: echo "${{needs.Build.outputs.greet}}"
+# name: workflow2_pushFilter
+# on:
+#   push:
+#     branches:
+#       - master
+#       - master/**
+#       - master
+#     paths:
+#       - '**.js'
+#       - '.github/**'
+# jobs:
+#   Lint:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v7
+#       - name: install Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '18'
+#       - name: Cache the dependencies
+#         uses: actions/cache@v3
+#         with:
+#           path: ~/.npm
+#           key: cachekey-${{hashFiles('**/package-lock.json')}} 
+#       - name: Install dependencies
+#         run: npm ci
+#       - name: Run lint
+#         run: npm run lint
+#   Test:
+#     needs: Lint
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v7
+#       - name: install Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '18'
+#       - name: Cache the dependencies
+#         uses: actions/cache@v3
+#         with:
+#           path: ~/.npm
+#           key: cachekey-${{hashFiles('**/package-lock.json')}} 
+#       - name: Install dependencies
+#         run: npm ci
+#       - name: Run tests
+#         run: npm run test
+#   Build:
+#    needs: [Lint,Test]
+#    outputs:
+#     greet: ${{steps.g1.outputs.greeting}}
+#    runs-on: ubuntu-latest
+#    steps:
+#       - name: Produce Greeting Hello
+#         id:   g1
+#         run:  echo 'greeting=hello' >> $GITHUB_OUTPUT ';'
+#       - name: Checkout code
+#         uses: actions/checkout@v7
+#       - name: install Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '18'
+#       - name: Cache the dependencies
+#         uses: actions/cache@v3
+#         with:
+#           path: ~/.npm
+#           key: cachekey-${{hashFiles('**/package-lock.json')}} 
+#       - name: Install dependencies
+#         run: npm ci
+#       - name: Run build
+#         run: npm run build
+#       - name: publish artifact
+#         uses: actions/upload-artifact@v7
+#         with:
+#           name: outputBuild
+#           path: dist
+#   Deploy:
+#     needs: Build
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Get artifact
+#         uses: actions/download-artifact@v7
+#         with:
+#           name: outputBuild
+#       - name: Display
+#         run: ls
+#       - name: Display Job output
+#         run: echo "${{needs.Build.outputs.greet}}"
