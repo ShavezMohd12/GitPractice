@@ -32,7 +32,7 @@ jobs:
             echo "LintSuccess=True" >> $GITHUB_OUTPUT
     Message:
       needs: [Lint]
-      if: needs.Lint.outputs.LintSuccess == True
+      if: needs.Lint.outputs.LintSuccess == 'True'
       runs-on: ubuntu-latest
       steps:
         - name: Message
