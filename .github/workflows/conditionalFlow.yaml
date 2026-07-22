@@ -6,6 +6,8 @@ on:
 
 jobs:
     Lint:
+      outputs:
+        LintSuccess: ${{steps.lint.outputs.LintSuccess}}
       runs-on: ubuntu-latest
       steps:
         - name: Get code
@@ -24,4 +26,13 @@ jobs:
           if: steps.cache-u.outputs.cache-hit =='false'
           run: npm ci
         - name: Run Lint
+          id:  lint
           run: npm run lint
+          run: echo "LintSuccess=True" >> $GITHUB_OUTPUT
+    Message:
+      needs: [Lint]
+      if: jobs.Lint.outputs.LintSuccess=='True'
+      runs-on: ubuntu-latest
+      steps:
+        - name: Message
+          run: echo Lint Success
