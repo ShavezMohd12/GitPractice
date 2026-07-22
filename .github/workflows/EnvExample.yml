@@ -7,7 +7,7 @@ jobs:
   Greeting:
     environment: test
     env:
-      MONTH: January
+      MONTH: ${{vars.MONTH}}
       YEAR: ${{secrets.YEAR}}
     runs-on: ubuntu-latest
     steps:
