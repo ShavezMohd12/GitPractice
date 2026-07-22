@@ -27,8 +27,9 @@ jobs:
           run: npm ci
         - name: Run Lint
           id:  lint
-          run: npm run lint
-          run: echo "LintSuccess=True" >> $GITHUB_OUTPUT
+          run: |
+            npm run lint
+            echo "LintSuccess=True" >> $GITHUB_OUTPUT
     Message:
       needs: [Lint]
       if: jobs.Lint.outputs.LintSuccess=='True'
