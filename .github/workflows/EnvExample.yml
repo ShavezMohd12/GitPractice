@@ -12,6 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Greet
-        run: echo "'$DAY'/ ${{env.MONTH}} / $YEAR"
+        run: echo "'$DAY'/ ${{env.MONTH}} / ${{env.YEAR}}"
 
         
