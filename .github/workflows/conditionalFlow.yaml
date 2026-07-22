@@ -39,8 +39,8 @@ jobs:
           run: echo Lint Success
     Test:
       outputs:
-        TestRunOutcome: ${{steps.testRun.outputs.TestRunStatus}}
-        TestRunConclusion: ${{steps.testRun.outputs.TestRunCon}}
+        TestRunOutcome: ${{steps.capture.outputs.TestRunStatus}}
+        TestRunConclusion: ${{steps.capture.outputs.TestRunCon}}
       runs-on: ubuntu-latest
       steps:
         - name: Get code
@@ -62,7 +62,9 @@ jobs:
           id: testRun
           continue-on-error: true
           run: npm run test
-        - run: |
+        - name: Capture TestRunStatu
+          id: capture
+          run: |
             echo "TestRunStatus=${{steps.testRun.outcome}}" >> $GITHUB_OUTPUT
             echo "TestRunCon=${{steps.testRun.conclusion}}" >> $GITHUB_OUTPUT
     Message2:
