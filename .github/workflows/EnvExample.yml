@@ -1,0 +1,17 @@
+name: envExample
+on:
+  workflow_dispatch:
+env:
+  DAY: Monday
+jobs:
+  Greeting:
+    environment: test
+    env:
+      MONTH: January
+      YEAR: ${{secrets.YEAR}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greet
+        run: echo "'$DAY'/ ${{env.MONTH}} / $YEAR"
+
+        
