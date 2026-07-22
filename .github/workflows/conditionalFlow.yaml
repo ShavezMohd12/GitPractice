@@ -37,3 +37,40 @@ jobs:
       steps:
         - name: Message
           run: echo Lint Success
+    Test:
+      outputs:
+        TestRunOutcome: ${{steps.testRun.outputs.TestRunStatus}}
+        TestRunConclusion: ${{steps.testRun.outputs.TestRunCon}}
+      runs-on: ubuntu-latest
+      steps:
+        - name: Get code
+          uses: actions/checkout@v3
+        - name: Get Node
+          uses: actions/setup-Node@v3
+          with:
+            node-version: '18'
+        - name: Get Cache
+          id: cache-u
+          uses: actions/cache@v3
+          with:
+            path: node_modules
+            key:  node-module-${{ hashFiles('package-lock.json') }}
+        - name: Install dependencies
+          if: steps.cache-u.outputs.cache-hit=='false'
+          run: npm ci
+        - name: Run Test
+          id: testRun
+          continue-on-error: true
+          run: |
+            npm run test
+            echo "TestRunStatus=${{steps.testRun.outcome}}" >> $GITHUB_OUTPUT
+            echo "TestRunCon=${{steps.testRun.conclusion}}" >> $GITHUB_OUTPUT
+    Message2:
+      needs: [Test]
+      if:  success()
+      runs-on: ubuntu-latest
+      steps:
+        - name: Print Outcome 
+          run: echo "${{needs.Test.outputs.TestRunOutcome}}"
+        - name: Print conclusion
+          run:  echo "${{needs.Test.outputs.TestRunConclusion}}"
