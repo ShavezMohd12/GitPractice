@@ -41,6 +41,7 @@ jobs:
         - name: Message
           run: echo Lint Success
     Test:
+      environment: test
       uses: ./.github/workflows/reusable-code.yaml
       with:
         Auther: 'Shavez'
