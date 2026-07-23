@@ -1,5 +1,11 @@
 name: Get Code and Use cache
-on: workflow_call
+on: 
+  workflow_call:
+    outputs:
+      TestRunOutcome:
+        value: ${{jobs.Test.outputs.TestRunOutcome}}
+      TestRunConclusion: 
+        value: ${{jobs.Test.outputs.TestRunConclusion}}
 jobs:
   Test:
     outputs:
