@@ -44,7 +44,7 @@ jobs:
       environment: test
       uses: ./.github/workflows/reusable-code.yaml
       with:
-        Auther: 'Shavez'
+        Auther: 'Shave'
       secrets:
         Password: ${{secrets.YEAR}}
     Message2:
