@@ -1,5 +1,5 @@
 name: Get Code and Use cache
-on: workflows-call
+on: workflow_call
 jobs:
   Test:
     outputs:
