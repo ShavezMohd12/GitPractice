@@ -41,9 +41,6 @@ jobs:
         - name: Message
           run: echo Lint Success
     Test:
-      outputs:
-        TestRunOutcome: ${{steps.capture.outputs.TestRunStatus}}
-        TestRunConclusion: ${{steps.capture.outputs.TestRunCon}}
       uses: ./.github/workflows/reusable-code.yaml
     Message2:
       needs: [Test]

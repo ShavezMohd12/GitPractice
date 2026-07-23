@@ -1,7 +1,10 @@
 name: Get Code and Use cache
 on: workflows-call
 jobs:
-  GetCode:
+  Test:
+    outputs:
+        TestRunOutcome: ${{steps.capture.outputs.TestRunStatus}}
+        TestRunConclusion: ${{steps.capture.outputs.TestRunCon}}
     runs-on: ubuntu-latest
     steps:
       - name: Get code
