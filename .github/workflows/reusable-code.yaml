@@ -6,6 +6,16 @@ on:
         value: ${{jobs.Test.outputs.TestRunOutcome}}
       TestRunConclusion: 
         value: ${{jobs.Test.outputs.TestRunConclusion}}
+    inputs:
+      Auther:
+        type: string
+        required: false
+        default: 'shavez'
+        description: Auther of flow
+    secrets:
+      Password:
+        required: true
+
 jobs:
   Test:
     outputs:
@@ -35,5 +45,6 @@ jobs:
       - name: Capture TestRunStatu
         id: capture
         run: |
+           echo "${{inputs.Auther}} - ${{secrets.Password}}"
            echo "TestRunStatus=${{steps.testRun.outcome}}" >> $GITHUB_OUTPUT
            echo "TestRunCon=${{steps.testRun.conclusion}}" >> $GITHUB_OUTPUT
