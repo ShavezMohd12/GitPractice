@@ -41,12 +41,11 @@ jobs:
         - name: Message
           run: echo Lint Success
     Test:
-      environment: test
       uses: ./.github/workflows/reusable-code.yaml
       with:
         Auther: 'Shave'
       secrets:
-        Password: ${{secrets.YEAR}}
+        Password: ${{secrets.PASSWORD}}
     Message2:
       needs: [Test]
       if:  success()
